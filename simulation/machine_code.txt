@@ -1,0 +1,43 @@
+    in $s0
+    addi $t6, $t6, 1023
+    ble $s0, $zero, HALT
+    bge $s0, $t6, HALT
+    add $a0, $s0, $zero
+    jal READ_INPUTS
+    add $t1, $zero, $zero
+    add $t2, $zero, $zero
+    lw $t3, 0($t2)
+    add $t4, $t3, zero #$t4 = max
+    add $t5, $t3, $zero
+    addi $t1, $t1, 1
+    addi $t2, $t2, 1
+FIND_LOOP:
+    beq $t1, $s0, PRINT_RESULT
+    lw $t3, 0($t2)
+    ble $t3, $t4, CHECK_MIN
+    add $t4, $t3, $zero
+CHECK_MIN:
+    bge $t3, $t5, NEXT_ELEMENT
+    add $t5, $t3, $zero
+NEXT_ELEMENT:
+    addi $t1, $t1, 1
+    addi $t2, $t2, 1
+    j FIND_LOOP (&13) 
+PRINT_RESULT:
+    out $t4
+    out $t5
+HALT:
+    halt
+
+READ_INPUTS:
+    add $t1, $zero, $zero
+    add $t2, $zero, $zero
+INPUT_LOOP:
+    beq $t1, $a0, END_READ
+    in $v0
+    sw $v0, 0($t2)
+    addi $t1, $t1, 1
+    addi $t2, $t2, 1
+    j INPUT_LOOP
+END_READ
+    jr $ra

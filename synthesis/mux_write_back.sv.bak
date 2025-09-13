@@ -1,0 +1,28 @@
+module mux_write_back (
+    input logic [2:0] write_back,
+    input logic [31:0] mem_data,
+    input logic [31:0] alu_data,
+    input logic [31:0] pc_plus_one,
+    input logic [17:0] input_sw, //verificar (provavel que será haverá menos switches, sendo necessário estender o valor para 31 bits)
+    input logic [31:0] rs_data,
+    output logic [31:0] mux_out
+);
+    
+    logic input_extended
+
+    sign_extension sign_extension(
+        .inst_imm(input_sw),
+        .inst_imm_extended(input_extended)
+    );
+
+    always_comb begin
+        case (write_back)
+            3'b000: mux_out = mem_data;
+            3'b001: mux_out = alu_data;
+            3'b010: mux_out = pc_plus_one;
+            3'b011: mux_out = input_extended;
+            3'b100: mux_out = rs_data;
+        endcase
+    end
+	
+endmodule

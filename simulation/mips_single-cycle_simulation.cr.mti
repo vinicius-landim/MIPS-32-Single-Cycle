@@ -1,0 +1,239 @@
+D:/Quartus/mips_single-cycle/synthesis/data_RAM.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/data_RAM.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module data_RAM
+
+Top level modules:
+	data_RAM
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_display_output.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_display_output.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_display_output
+
+Top level modules:
+	sim_display_output
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_system_top.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_system_top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_system_top
+
+Top level modules:
+	sim_system_top
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/ALU.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/ALU.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/register_file.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/register_file.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module register_file
+
+Top level modules:
+	register_file
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/ALU_test.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/ALU_test.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module ALU_test
+
+Top level modules:
+	ALU_test
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/sign_extension.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/sign_extension.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sign_extension
+
+Top level modules:
+	sign_extension
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/display_output.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/display_output.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module display_output
+
+Top level modules:
+	display_output
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_bin_to_bcd.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_bin_to_bcd.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_bin_to_bcd
+
+Top level modules:
+	sim_bin_to_bcd
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/system_top.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/system_top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module system_top
+
+Top level modules:
+	system_top
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/instruction_ROM.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/instruction_ROM.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module instruction_ROM
+
+Top level modules:
+	instruction_ROM
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/program_counter.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/program_counter.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module program_counter
+
+Top level modules:
+	program_counter
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/mux_2to1.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/mux_2to1.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module mux_2to1
+
+Top level modules:
+	mux_2to1
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_mux_write_back.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_mux_write_back.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_mux_write_back
+
+Top level modules:
+	sim_mux_write_back
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_register_file.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_register_file.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_register_file
+
+Top level modules:
+	sim_register_file
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/control_unit.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/control_unit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module control_unit
+
+Top level modules:
+	control_unit
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/mux_write_reg.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/mux_write_reg.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module mux_write_reg
+
+Top level modules:
+	mux_write_reg
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/button_pulse_synchronizer.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/button_pulse_synchronizer.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module button_pulse_synchronizer
+
+Top level modules:
+	button_pulse_synchronizer
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/clock_divider.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/clock_divider.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module clock_divider
+
+Top level modules:
+	clock_divider
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/pc_update_logic.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/pc_update_logic.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module pc_update_logic
+
+Top level modules:
+	pc_update_logic
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/branch_logic_unit.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/branch_logic_unit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module branch_logic_unit
+
+Top level modules:
+	branch_logic_unit
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_instruction_ROM.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_instruction_ROM.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_instruction_ROM
+
+Top level modules:
+	sim_instruction_ROM
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_program_counter.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_program_counter.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_program_counter
+
+Top level modules:
+	sim_program_counter
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/ALU_control.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/ALU_control.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module ALU_control
+
+Top level modules:
+	ALU_control
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/bin_to_bcd.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/bin_to_bcd.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module bin_to_bcd
+
+Top level modules:
+	bin_to_bcd
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_mips_processor.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_mips_processor.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_mips_processor
+
+Top level modules:
+	sim_mips_processor
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/mux_write_back.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/mux_write_back.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module mux_write_back
+
+Top level modules:
+	mux_write_back
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_mux_write_reg.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_mux_write_reg.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_mux_write_reg
+
+Top level modules:
+	sim_mux_write_reg
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_button_pulse_synchronizer.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_button_pulse_synchronizer.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_button_pulse_synchronizer
+
+Top level modules:
+	sim_button_pulse_synchronizer
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_branch_logic_unit.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_branch_logic_unit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_branch_logic_unit
+
+Top level modules:
+	sim_branch_logic_unit
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_ALU_control.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_ALU_control.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_ALU_control
+
+Top level modules:
+	sim_ALU_control
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_clock_divider.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_clock_divider.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_clock_divider
+
+Top level modules:
+	sim_clock_divider
+
+} {} {}} D:/Quartus/mips_single-cycle/synthesis/mips_processor.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/synthesis/mips_processor.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module mips_processor
+
+Top level modules:
+	mips_processor
+
+} {} {}} D:/Quartus/mips_single-cycle/simulation/sim_sign_extension.sv {1 {vlog -work work -sv -stats=none D:/Quartus/mips_single-cycle/simulation/sim_sign_extension.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module sim_sign_extension
+
+Top level modules:
+	sim_sign_extension
+
+} {} {}}

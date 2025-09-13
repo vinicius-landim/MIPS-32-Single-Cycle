@@ -1,0 +1,41 @@
+module sim_mips_processor;
+
+    logic clk;
+    logic reset_pc;
+    logic [15:0] switches;
+    logic [31:0] instruction;
+    logic [31:0] data_out;
+
+    // Instância do processador
+    mips_processor dut (
+        .clk(clk),
+        .reset_pc(reset_pc),
+        .switches(switches),
+        .instruction(instruction),
+        .data_out(data_out)
+    );
+
+    // Geração do clock: 10ns de período
+    always #5 clk = ~clk;
+
+    initial begin
+        // Inicialização dos sinais
+        clk = 0;
+        reset_pc = 1;     
+        switches = 16'd10; 
+        #10;
+        reset_pc = 0;
+	#10;              
+
+        switches = 16'd20; 
+        #10;              
+
+        switches = 16'd0; 
+        #10;              
+          
+
+        #20;
+        $stop;
+    end
+
+endmodule

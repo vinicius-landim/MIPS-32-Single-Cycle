@@ -1,0 +1,59 @@
+module sim_system_top;
+    logic clk, read_clk;
+    logic reset, btn_io;
+    logic [15:0] switches;
+    logic [6:0] HEX6, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
+
+    system_top dut(
+        .clk(clk),
+        .read_clk(read_clk),
+        .reset(reset),
+        .btn_io(btn_io),
+        .switches(switches),
+        .HEX6(HEX6),
+        .HEX5(HEX5),
+        .HEX4(HEX4),
+        .HEX3(HEX3),
+        .HEX2(HEX2),
+        .HEX1(HEX1),
+        .HEX0(HEX0)
+    );
+
+    always begin
+        #5 clk = ~clk;
+    end
+
+    always begin
+        #0.5 read_clk = ~read_clk;
+    end
+
+    initial begin
+        clk = 0;
+        read_clk = 0;
+        reset = 1;
+        switches = 0;
+        #5 reset = 0;
+        btn_io = 0;
+
+    @(negedge clk);
+
+    // Configura switches ANTES da próxima subida
+    switches = 10; // valor para o IN
+    #1 btn_io = 1; #1 btn_io = 0;
+    @(negedge clk);
+    // Nesse momento o valor 10 será escrito no registrador $1
+    switches = 20;
+    #1 btn_io = 1; #1 btn_io = 0;
+    // Configura switches para a próxima entrada
+    // switches = 1;
+
+    @(posedge clk);
+    // Novo valor 20 será escrito no registrador $2
+
+    // Continue conforme necessário...
+
+    #100 $stop;
+
+    end
+
+endmodule

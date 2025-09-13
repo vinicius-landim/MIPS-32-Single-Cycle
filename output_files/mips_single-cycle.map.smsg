@@ -1,0 +1,3 @@
+Info (10281): Verilog HDL Declaration information at control_unit.sv(13): object "in" differs only in case from object "IN" in the same scope File: D:/Quartus/mips_single-cycle/synthesis/control_unit.sv Line: 13
+Info (10281): Verilog HDL Declaration information at control_unit.sv(12): object "out" differs only in case from object "OUT" in the same scope File: D:/Quartus/mips_single-cycle/synthesis/control_unit.sv Line: 12
+Info (10281): Verilog HDL Declaration information at control_unit.sv(14): object "halt" differs only in case from object "HALT" in the same scope File: D:/Quartus/mips_single-cycle/synthesis/control_unit.sv Line: 14

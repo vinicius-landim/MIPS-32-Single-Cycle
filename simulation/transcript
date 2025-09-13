@@ -1,0 +1,40 @@
+# Compile of data_RAM.sv was successful.
+# Compile of mips_processor.sv was successful.
+# Compile of mux_write_back.sv was successful.
+# Compile of program_counter.sv was successful.
+# Compile of register_file.sv was successful.
+# Compile of instruction_ROM.sv was successful.
+# Compile of control_unit.sv was successful.
+# Compile of display_output.sv was successful.
+# Compile of system_top.sv was successful.
+# Compile of clock_divider.sv was successful.
+# 10 compiles, 0 failed with no errors.
+vsim -gui work.system_top
+# vsim -gui work.system_top 
+# Start time: 19:39:45 on Jul 23,2025
+# Loading sv_std.std
+# Loading work.system_top
+# Loading work.clock_divider
+# ** Error: (vsim-3033) D:/Quartus/mips_single-cycle/synthesis/system_top.sv(27): Instantiation of 'button_debouncer' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /system_top File: D:/Quartus/mips_single-cycle/synthesis/system_top.sv
+#         Searched libraries:
+#             D:/Quartus/mips_single-cycle/simulation/work
+# Loading work.mips_processor
+# Loading work.pc_update_logic
+# Loading work.mux_2to1
+# Loading work.program_counter
+# Loading work.instruction_ROM
+# Loading work.control_unit
+# Loading work.mux_write_reg
+# Loading work.register_file
+# Loading work.sign_extension
+# Loading work.ALU_control
+# Loading work.ALU
+# Loading work.branch_logic_unit
+# Loading work.data_RAM
+# Loading work.mux_write_back
+# Loading work.display_output
+# Loading work.bin_to_bcd
+# Error loading design
+# End time: 19:39:45 on Jul 23,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0

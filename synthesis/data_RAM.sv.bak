@@ -1,0 +1,33 @@
+module data_RAM #(parameter integer MEM_SIZE = 1024) (
+	input  logic [31:0] addr,       // Endereço word-addressable
+	input  logic [31:0] data,       // Dado a ser escrito
+	output logic [31:0] mem_out,    // Saída de leitura
+	
+	input  logic clk,
+	input  logic reset // novo sinal de reset
+	input  logic memwrite,
+	input  logic memread,
+);
+
+	// 1024 palavras = 4KB
+	logic [31:0] ram[0:MEM_SIZE-1];
+
+	// Escrita síncrona com reset
+	always_ff @(posedge clk) begin
+		if (reset) begin
+			for (int i = 0; i < 1024; i++)
+				ram[i] <= 32'b0;
+		end else if (memwrite) begin
+			ram[addr[9:0]] <= data;
+		end
+	end
+
+	// Leitura combinacional
+	always_comb begin
+		if (memread)
+			mem_out = ram[addr[9:0]];
+		else
+			mem_out = 32'b0;
+	end
+
+endmodule

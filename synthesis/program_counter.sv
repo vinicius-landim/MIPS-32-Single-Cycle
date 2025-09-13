@@ -1,0 +1,21 @@
+module program_counter(
+	input logic clk,
+	input logic halt,
+	input logic reset,
+	input logic clk_manual,
+	input logic io_stall,
+	input logic [31:0] pc_in,
+	output logic [31:0] pc_out
+);
+	logic clk_processor;
+	
+	assign clk_processor = io_stall ? clk_manual : clk;
+
+	always_ff @(posedge clk_processor or posedge reset) begin
+		if (reset)
+			pc_out <= 32'b0;
+		else if (~halt)
+			pc_out <= pc_in;
+	end
+
+endmodule
