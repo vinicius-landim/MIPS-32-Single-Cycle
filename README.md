@@ -84,5 +84,5 @@ The schematic below illustrates the signal flow and component interconnections:
 * `/src`: All Verilog/VHDL source files for the MIPS processor logic.
 * `/docs`: Technical report, ISA tables, and datapath schematics.
 * `/simulation`: Testbenches and simulation files (ModelSim/Quartus).
-* `/waveforms`: Waveform images used in developmnent.
+* `/waveforms`: Waveform images used in development.
 * `*.qpf / *.qsf`: Quartus project and settings files (including pin assignments for DE2-115).
