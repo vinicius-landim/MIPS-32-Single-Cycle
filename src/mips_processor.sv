@@ -1,10 +1,9 @@
 module mips_processor(
     input logic clk, read_clk,
     input logic reset, btn_io,
-    input logic [15:0] switches,
-    input logic sw_negative,
-    output logic [31:0] data_out,
-    output logic flag_in, flag_out, flag_negative, flag_halt
+    input logic [31:0] input_data,
+    output logic [31:0] output_data,
+    output logic flag_in, flag_out, flag_halt, flag_olcd
 );
 
     logic [31:0] pc_addr;
@@ -12,17 +11,18 @@ module mips_processor(
     logic [31:0] reg2_data;
     logic [31:0] inst;
     logic [31:0] inst_imm_extended, alu_Y , mem_data, reg1_data, alu_data;
-    logic [31:0] input_sw, input_data;
+    logic [31:0] write_back_data;
+    logic [31:0] hd_data;
     logic [4:0] write_reg_addr;
     logic [3:0] flag_alu_operation;
     logic [2:0] flag_branch_type, flag_alu_op, flag_write_back;
     logic [1:0] flag_regdst;
-    logic flag_regwrite, flag_jump, flag_alu_src, flag_memwrite, flag_memread;
+    logic flag_regwrite, flag_jump, flag_alu_src, flag_memwrite, flag_memread, flag_instwrite;
     logic flag_jumpreg, flag_branch, flag_io_stall;
     logic flag_zero, flag_less;
+    logic flag_hdread;
 
-    assign input_sw = {16'b0, switches};
-    assign input_data = sw_negative ? (~input_sw + 32'd1) : input_sw;
+    assign output_data = reg1_data;
 
     pc_update_logic pc_update_logic(
         .pc_current(pc_addr),
@@ -45,10 +45,14 @@ module mips_processor(
         .pc_out(pc_addr)
     );
 
-    instruction_ROM instruction_memory(
-        .clk(read_clk),
-        .addr(pc_addr[7:0]),
-        .inst_code(inst)
+    instruction_RAM instruction_memory(
+        .read_clock(read_clk),
+        .write_clock(clk),
+        .read_addr(pc_addr[10:0]),
+        .write_addr(alu_data[10:0]),
+        .flag_instwrite(flag_instwrite),
+        .inst_in(reg2_data),
+        .inst_out(inst)
     );
 
     control_unit control_unit(
@@ -65,7 +69,10 @@ module mips_processor(
         .out(flag_out),
         .in(flag_in),
         .halt(flag_halt),
-        .io_stall(flag_io_stall)
+        .io_stall(flag_io_stall),
+        .olcd(flag_olcd),
+        .hdread(flag_hdread),
+        .instwrite(flag_instwrite)
     );
 
     mux_write_reg mux_write_reg(
@@ -80,11 +87,22 @@ module mips_processor(
         .reg1_addr(inst[25:21]),
         .reg2_addr(inst[20:16]),
         .write_reg_addr(write_reg_addr),
-        .write_data(data_out),
+        .write_data(write_back_data),
         .reg1_data(reg1_data),
         .reg2_data(reg2_data),
         .clk(clk),
         .regwrite(flag_regwrite)
+    );
+
+    hard_disk hd(
+        .hd_in(31'b0),
+        .track(reg1_data[9:0]),
+        .sector(inst_imm_extended[9:0]),
+        .read_clock(read_clk),
+        .write_clock(clk),
+        .flag_hdread(flag_hdread),
+        .flag_hdwrite(1'b0),
+        .hd_out(hd_data)
     );
 
     sign_extension sign_extension_imm(
@@ -141,9 +159,8 @@ module mips_processor(
         .pc_plus_one(pc_addr + 1),
         .input_data(input_data),
         .rs_data(reg1_data),
-        .mux_out(data_out)
+        .hd_data(hd_data),
+        .mux_out(write_back_data),
     );
-
-    assign flag_negative = data_out[31];
 
 endmodule
