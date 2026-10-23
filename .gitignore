@@ -1,0 +1,82 @@
+# =========================
+# Quartus project files
+# =========================
+
+# Quartus compilation database
+db/
+incremental_db/
+
+# Compilation output
+output_files/
+
+# Simulation files
+simulation/
+sim/
+
+# Programmer / JTAG files
+*.sof
+*.pof
+*.jic
+*.rpd
+
+# Quartus generated files
+*.qws
+*.qws~
+*.smsg
+*.summary
+*.rpt
+*.done
+*.pin
+*.jdi
+*.qdf
+
+# Netlist / intermediate files
+*.cmp
+*.fit
+*.map
+*.sta
+*.sld
+*.sld_design
+*.sld_hierarchy
+*.sld_rom
+*.sld_mem
+
+# Timing / analysis
+*.tcl
+!*.tcl
+*.sdc
+
+# Quartus recovery / temporary files
+*.bak
+*.tmp
+*.log
+*.lock
+*.lck
+
+# IP generated files
+*.qip
+*.sip
+*.spd
+
+# Platform Designer / Qsys generated files
+.qsys_edit/
+*.qsys
+*.qws
+
+# =========================
+# OS / editor files
+# =========================
+
+# VS Code
+.vscode/
+
+# Linux
+*~
+.directory
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
