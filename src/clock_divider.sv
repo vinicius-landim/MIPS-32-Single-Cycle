@@ -2,7 +2,7 @@
 // Verilog project: Verilog code for clock divider on FPGA
 // Top level Verilog code for clock divider on FPGA
 module clock_divider #(
-    parameter DIVISOR = 28'd5_000_000
+    parameter DIVISOR = 28'd50
 ) (
     input logic clk_in,
     output logic clk_out
