@@ -76,7 +76,7 @@ The datapath logic follows the standard single-cycle organization. Every instruc
 
 The schematic below illustrates the signal flow and component interconnections:
 
-![MIPS Datapath Schematic](docs/datapath_MIPS_processor.jpg)
+![MIPS Datapath Schematic](docs/figs/datapath_MIPS_processor.jpg)
 
 ---
 
