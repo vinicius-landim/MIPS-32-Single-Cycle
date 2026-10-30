@@ -4,6 +4,8 @@ module program_counter(
 	input logic reset,
 	input logic clk_manual,
 	input logic io_stall,
+	input logic flag_endp,
+	input logic [31:0] kernel_pc,
 	input logic [31:0] pc_in,
 	output logic [31:0] pc_out
 );
@@ -15,7 +17,10 @@ module program_counter(
 		if (reset)
 			pc_out <= 32'b0;
 		else if (~halt)
-			pc_out <= pc_in;
+			if(flag_endp)
+				pc_out <= kernel_pc;
+			else
+				pc_out <= pc_in;
 	end
 
 endmodule

@@ -1,5 +1,5 @@
 module data_RAM #(
-	parameter ADDR_WIDTH=10
+	parameter ADDR_WIDTH=14
 )(
 	input logic [31:0] data,
 	input logic [(ADDR_WIDTH-1):0] read_addr, write_addr,
@@ -10,7 +10,6 @@ module data_RAM #(
 	output logic [31:0] mem_out
 );
 	
-	// Declare the RAM variable
 	reg [31:0] ram[2**ADDR_WIDTH-1:0];
 	
 	always_ff @ (posedge write_clk) begin
