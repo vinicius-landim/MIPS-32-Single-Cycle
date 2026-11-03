@@ -15,38 +15,43 @@ module control_unit(
     output logic io_stall,
     output logic olcd,
     output logic hdread,
+    output logic hdaddr,
+    output logic hdwrite,
     output logic instwrite,
     output logic runp,
     output logic endp,
     output logic setbase
 );
 
-    parameter   R_TYPE = 6'b000000,
-                ADDI = 6'b000001,
-                ANDI = 6'b000010,
-                ORI = 6'b000011,
-                XORI = 6'b000100,
-                LW = 6'b000101,
-                SW = 6'b000110,
-                LUI = 6'b000111,
-                BEQ = 6'b001000,
-                BNE = 6'b001001,
-                BLT = 6'b001010,
-                BGT = 6'b001011,
-                BLE = 6'b001100,
-                BGE = 6'b001101,
-                IN = 6'b001110,
-                OUT = 6'b001111,
-                J = 6'b010000,
-                JAL = 6'b010001,
-                NOP = 6'b010010,
-                HALT = 6'b010011,
-                OLCD =  6'b010100,
-                HDR = 6'b010101,
-                SINST = 6'b010110,
-                RUNP = 6'b010111,
-                ENDP = 6'b011000,
-                SDMB = 6'b011001;
+    parameter   R_TYPE  = 6'b000000,
+                ADDI    = 6'b000001,
+                ANDI    = 6'b000010,
+                ORI     = 6'b000011,
+                XORI    = 6'b000100,
+                LW      = 6'b000101,
+                SW      = 6'b000110,
+                LUI     = 6'b000111,
+                BEQ     = 6'b001000,
+                BNE     = 6'b001001,
+                BLT     = 6'b001010,
+                BGT     = 6'b001011,
+                BLE     = 6'b001100,
+                BGE     = 6'b001101,
+                IN      = 6'b001110,
+                OUT     = 6'b001111,
+                J       = 6'b010000,
+                JAL     = 6'b010001,
+                NOP     = 6'b010010,
+                HALT    = 6'b010011,
+                OLCD    = 6'b010100,
+                HDR     = 6'b010101,
+                SINST   = 6'b010110,
+                RUNP    = 6'b010111,
+                ENDP    = 6'b011000,
+                SDMB    = 6'b011001,
+                OLCDW   = 6'b011010,
+                HDA     = 6'b011011,
+                HDW     = 6'b011100;
 
 
 
@@ -66,6 +71,8 @@ module control_unit(
         io_stall    = 0;
         olcd        = 0;
         hdread      = 0;
+        hdaddr      = 0;
+        hdwrite     = 0;
         instwrite   = 0;
         runp        = 0;
         endp        = 0;
@@ -88,6 +95,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -110,6 +119,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -132,6 +143,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -154,6 +167,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -176,6 +191,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -198,6 +215,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -220,6 +239,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -242,6 +263,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -264,6 +287,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -286,6 +311,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -308,6 +335,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -330,6 +359,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -352,6 +383,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -374,6 +407,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -396,6 +431,8 @@ module control_unit(
                 io_stall = 1;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -418,6 +455,8 @@ module control_unit(
                 io_stall = 1;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -440,6 +479,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -462,6 +503,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -484,6 +527,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -506,6 +551,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -528,6 +575,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 1;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -550,6 +599,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 1;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
@@ -572,6 +623,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 1;
                 runp = 0;
                 endp = 0;
@@ -594,6 +647,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 1;
                 endp = 0;
@@ -616,6 +671,8 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 1;
@@ -638,10 +695,84 @@ module control_unit(
                 io_stall = 0;
                 olcd = 0;
                 hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
                 instwrite = 0;
                 runp = 0;
                 endp = 0;
                 setbase = 1;
+            end
+				
+            OLCDW: begin
+                writeback = 3'b100;
+                branch_type = 3'b000;
+                aluop = 3'b000;
+                regdst = 2'b00;
+                jump = 0;
+                memread = 0;
+                memwrite = 0;
+                alusrc = 0;
+                regwrite = 0;
+                out = 0;
+                in = 0;
+                halt = 0;
+                io_stall = 1;
+                olcd = 1;
+                hdread = 0;
+                hdaddr = 0;
+                hdwrite = 0;
+                instwrite = 0;
+                runp = 0;
+                endp = 0;
+                setbase = 0;
+            end
+
+            HDA: begin
+                writeback = 3'b000;
+                branch_type = 3'b000;
+                aluop = 3'b000;
+                regdst = 2'b00;
+                jump = 0;
+                memread = 0;
+                memwrite = 0;
+                alusrc = 0;
+                regwrite = 0;
+                out = 0;
+                in = 0;
+                halt = 0;
+                io_stall = 0;
+                olcd = 0;
+                hdread = 0;
+                hdaddr = 1;
+                hdwrite = 0;
+                instwrite = 0;
+                runp = 0;
+                endp = 0;
+                setbase = 0;
+            end
+
+            HDW: begin
+                writeback = 3'b000;
+                branch_type = 3'b000;
+                aluop = 3'b000;
+                regdst = 2'b00;
+                jump = 0;
+                memread = 0;
+                memwrite = 0;
+                alusrc = 0;
+                regwrite = 0;
+                out = 0;
+                in = 0;
+                halt = 0;
+                io_stall = 0;
+                olcd = 0;
+                hdread = 0;
+                hdaddr = 0;
+                hdwrite = 1;
+                instwrite = 0;
+                runp = 0;
+                endp = 0;
+                setbase = 0;
             end
 				
             default: begin
@@ -660,6 +791,8 @@ module control_unit(
                 io_stall    = 0;
                 olcd        = 0;
                 hdread      = 0;
+                hdaddr      = 0;
+                hdwrite     = 0;
                 instwrite   = 0;
                 runp        = 0;
                 endp        = 0;
