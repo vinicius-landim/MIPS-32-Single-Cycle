@@ -2,7 +2,8 @@ module mips_processor(
     input logic clk, read_clk,
     input logic reset, btn_io,
     input logic [31:0] input_data,
-    output logic [31:0] output_data,
+    output logic [31:0] output_data1,
+    output logic [31:0] output_data2,
     output logic flag_in, flag_out, flag_halt, flag_olcd
 );
     logic [31:0] pc_addr;
@@ -11,12 +12,13 @@ module mips_processor(
     logic [31:0] inst;
     logic [31:0] inst_imm_extended, alu_Y , mem_data, reg1_data, alu_data;
     logic [31:0] write_back_data;
-    logic [31:0] hd_data;
+    logic [31:0] hd_in, hd_data;
     logic [31:0] kernel_pc;
     logic [31:0] dm_base;
     logic [13:0] dm_addr;
     logic [10:0] im_base;
     logic [10:0] im_read_addr;
+    logic [9:0]  hd_track, hd_sector;
     logic [4:0] write_reg_addr;
     logic [3:0] flag_alu_operation;
     logic [2:0] flag_branch_type, flag_alu_op, flag_write_back;
@@ -29,8 +31,6 @@ module mips_processor(
     logic flag_endp;
     logic flag_sysmode;
     logic flag_setbase;
-
-    assign output_data = reg1_data;
 
     pc_update_logic pc_update_logic(
         .pc_current(pc_addr),
@@ -72,6 +72,8 @@ module mips_processor(
         .io_stall(flag_io_stall),
         .olcd(flag_olcd),
         .hdread(flag_hdread),
+        .hdaddr(flag_hdaddr),
+        .hdwrite(flag_hdwrite),
         .instwrite(flag_instwrite),
         .runp(flag_runp),
         .endp(flag_endp),
@@ -85,6 +87,7 @@ module mips_processor(
         .in_kernel_pc(pc_addr + 1),
         .flag_runp(flag_runp),
         .flag_endp(flag_endp),
+        .flag_setbase(flag_setbase),
         .sys_mode(flag_sysmode),
         .out_dm_base(dm_base),
         .out_kernel_pc(kernel_pc)
@@ -122,14 +125,26 @@ module mips_processor(
         .regwrite(flag_regwrite)
     );
 
+    hd_controller hd_controller(
+        .clk(clk),
+        .reset(reset),
+        .flag_hdaddr(flag_hdaddr),
+        .flag_hdwrite(flag_hdwrite),
+        .reg1_data(reg1_data),
+        .reg2_data(reg2_data),
+        .track(hd_track),
+        .sector(hd_sector),
+        .hd_in(hd_in)
+    );
+
     hard_disk hd(
-        .hd_in(31'b0),
-        .track(reg1_data[9:0]),
-        .sector(reg2_data[9:0]),
+        .hd_in(hd_in),
+        .track(hd_track),
+        .sector(hd_sector),
         .read_clock(read_clk),
         .write_clock(clk),
         .flag_hdread(flag_hdread),
-        .flag_hdwrite(1'b0),
+        .flag_hdwrite(flag_hdwrite),
         .hd_out(hd_data)
     );
 
@@ -190,7 +205,10 @@ module mips_processor(
         .input_data(input_data),
         .rs_data(reg1_data),
         .hd_data(hd_data),
-        .mux_out(write_back_data),
+        .mux_out(write_back_data)
     );
+
+    assign output_data1 = reg1_data;
+    assign output_data2 = reg2_data;
 
 endmodule
