@@ -9,7 +9,7 @@ module system_top(
     output logic LCD_ON, LCD_BLON, LCD_RW, LCD_EN, LCD_RS,
     inout wire [7:0] LCD_DATA 
 );
-    logic [31:0] cpu_data_in, cpu_data_out;
+    logic [31:0] cpu_data_in, cpu_data_out1, cpu_data_out2;
     logic flag_in, flag_out, flag_negative, flag_olcd;
     logic btn_debounced, clk_processor;
 
@@ -33,7 +33,8 @@ module system_top(
         .btn_io(btn_debounced),
         .reset(reset),
         .input_data(cpu_data_in),
-        .output_data(cpu_data_out),
+        .output_data1(cpu_data_out1),
+        .output_data2(cpu_data_out2),
         .flag_in(flag_in),
         .flag_out(flag_out),
         .flag_olcd(flag_olcd),
@@ -47,7 +48,8 @@ module system_top(
         .flag_in(flag_in),
         .flag_out(flag_out),
         .flag_olcd(flag_olcd),
-        .data_from_cpu(cpu_data_out),
+        .data1_from_cpu(cpu_data_out1),
+        .data2_from_cpu(cpu_data_out2),
         .data_to_cpu(cpu_data_in),
         .switches_in(switches),
         .sw_negative_in(sw_negative),

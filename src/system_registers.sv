@@ -32,7 +32,6 @@ module system_registers (
             else if(flag_setbase) begin
                 dm_base_reg <= in_dm_base;
             end
-
         end
     end
 
