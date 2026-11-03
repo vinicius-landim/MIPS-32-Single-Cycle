@@ -37,17 +37,52 @@ ENTITY LCD_Display IS
 -- *see LCD Controller's Datasheet for other graphics characters available
 */
 
+/*
+ * LCD_Display - controlador do LCD 16x2 (HD44780) do DE2-115
+ *
+ * Instrucao: OLCD rs, rt
+ *   msg [15:0] : codigo da mensagem (registrador rs)
+ *   arg [31:0] : valor exibido no "##" (registrador rt)
+ *
+ * Mensagens predefinidas (msg):
+ *   0         arg exibido em hexadecimal (modo depuracao)
+ *   1         LCD_OS_START
+ *   2         LCD_OS_MENU
+ *   3         LCD_OS_SINGLE_TASKING
+ *   4         LCD_OS_MULTI_TASKING
+ *   5         LCD_OS_ERROR
+ *   6         LCD_OS_SELECT_PROC
+ *   outro     igual ao 0
+ *
+ * Nos textos, "##" marca onde arg aparece em decimal (0 a 99).
+ * Zero a esquerda vira espaco; valores > 99 aparecem como "**".
+ */
+
+/*
+ * LCD_Display - controlador do LCD 16x2 (HD44780) do DE2-115
+ *
+ * Instrucao: OLCD rs, rt
+ *   msg [31:0] : codigo da mensagem (registrador rs)
+ *   arg [31:0] : valor exibido no "##" (registrador rt)
+ *
+ * Mensagens predefinidas (msg):
+ *   1         LCD_OS_START
+ *   2         LCD_OS_MENU
+ *   3         LCD_OS_SINGLE_TASKING
+ *   4         LCD_OS_MULTI_TASKING
+ *   5         LCD_OS_ERROR
+ *   6         LCD_OS_SELECT_PROC
+ *   outro     display em branco
+ *
+ * Nos textos, "##" marca onde arg aparece em decimal (0 a 99).
+ * Zero a esquerda vira espaco; valores > 99 aparecem como "**".
+ */
+
 module LCD_Display (
     iCLK_50MHZ,
     iRST_N,
-    hex7,
-    hex6,
-    hex5,
-    hex4,
-    hex3,
-    hex2,
-    hex1,
-    hex0,
+    msg,
+    arg,
     LCD_RS,
     LCD_E,
     LCD_RW,
@@ -56,14 +91,8 @@ module LCD_Display (
 
     input iCLK_50MHZ;
     input iRST_N;
-	input [3:0] hex7;
-    input [3:0] hex6;
-	input [3:0] hex5;
-    input [3:0] hex4;
-	input [3:0] hex3;
-    input [3:0] hex2;
-    input [3:0] hex1;
-    input [3:0] hex0;
+    input [31:0] msg;
+    input [31:0] arg;
 
     output LCD_RS;
     output LCD_E;
@@ -73,24 +102,23 @@ module LCD_Display (
 
     // Estados
     parameter
-        HOLD         = 4'h0,
-        FUNC_SET     = 4'h1,
-        DISPLAY_ON   = 4'h2,
-        MODE_SET     = 4'h3,
-        Print_String = 4'h4,
-        LINE2        = 4'h5,
-        RETURN_HOME  = 4'h6,
-        DROP_LCD_E   = 4'h7,
-        RESET1       = 4'h8,
-        RESET2       = 4'h9,
-        RESET3       = 4'ha,
-        DISPLAY_OFF  = 4'hb,
+        HOLD          = 4'h0,
+        FUNC_SET      = 4'h1,
+        DISPLAY_ON    = 4'h2,
+        MODE_SET      = 4'h3,
+        Print_String  = 4'h4,
+        LINE2         = 4'h5,
+        RETURN_HOME   = 4'h6,
+        DROP_LCD_E    = 4'h7,
+        RESET1        = 4'h8,
+        RESET2        = 4'h9,
+        RESET3        = 4'ha,
+        DISPLAY_OFF   = 4'hb,
         DISPLAY_CLEAR = 4'hc;
 
     reg [3:0] state;
     reg [3:0] next_command;
 
-    // Enter new ASCII hex data above for LCD Display
     reg [7:0] DATA_BUS_VALUE;
 
     wire [7:0] Next_Char;
@@ -108,15 +136,9 @@ module LCD_Display (
 
     LCD_display_string u1 (
         .index(CHAR_COUNT),
-        .out(Next_Char),
-		.hex7(hex7),
-		.hex6(hex6),
-		.hex5(hex5),
-		.hex4(hex4),
-		.hex3(hex3),
-        .hex2(hex2),
-        .hex1(hex1),
-        .hex0(hex0)
+        .msg(msg),
+        .arg(arg),
+        .out(Next_Char)
     );
 
     assign LCD_RW = LCD_RW_INT;
@@ -124,14 +146,14 @@ module LCD_Display (
     always @(posedge iCLK_50MHZ or negedge iRST_N) begin
         if (!iRST_N) begin
             CLK_COUNT_400HZ <= 20'h00000;
-            CLK_400HZ      <= 1'b0;
+            CLK_400HZ       <= 1'b0;
         end
         else if (CLK_COUNT_400HZ < 20'h0F424) begin
             CLK_COUNT_400HZ <= CLK_COUNT_400HZ + 1'b1;
         end
         else begin
             CLK_COUNT_400HZ <= 20'h00000;
-            CLK_400HZ      <= ~CLK_400HZ;
+            CLK_400HZ       <= ~CLK_400HZ;
         end
     end
 
@@ -144,10 +166,6 @@ module LCD_Display (
             case (state)
 
                 RESET1:
-                    // Set Function to 8-bit transfer and 2 line display
-                    // with 5x8 Font size
-                    // see Hitachi HD44780 family data sheet for LCD
-                    // command and timing details
                     begin
                         LCD_E          <= 1'b1;
                         LCD_RS         <= 1'b0;
@@ -178,8 +196,6 @@ module LCD_Display (
                         next_command   <= FUNC_SET;
                     end
 
-                // EXTRA STATES ABOVE ARE NEEDED FOR RELIABLE PUSHBUTTON RESET OF LCD
-
                 FUNC_SET:
                     begin
                         LCD_E          <= 1'b1;
@@ -190,7 +206,6 @@ module LCD_Display (
                         next_command   <= DISPLAY_OFF;
                     end
 
-                // Turn off Display and Turn off cursor
                 DISPLAY_OFF:
                     begin
                         LCD_E          <= 1'b1;
@@ -201,7 +216,6 @@ module LCD_Display (
                         next_command   <= DISPLAY_CLEAR;
                     end
 
-                // Clear Display and Turn off cursor
                 DISPLAY_CLEAR:
                     begin
                         LCD_E          <= 1'b1;
@@ -212,7 +226,6 @@ module LCD_Display (
                         next_command   <= DISPLAY_ON;
                     end
 
-                // Turn on Display and Turn off cursor
                 DISPLAY_ON:
                     begin
                         LCD_E          <= 1'b1;
@@ -223,7 +236,6 @@ module LCD_Display (
                         next_command   <= MODE_SET;
                     end
 
-                // Set write mode to auto increment address and move cursor to the right
                 MODE_SET:
                     begin
                         LCD_E          <= 1'b1;
@@ -234,7 +246,6 @@ module LCD_Display (
                         next_command   <= Print_String;
                     end
 
-                // Write ASCII hex character in first LCD character location
                 Print_String:
                     begin
                         state      <= DROP_LCD_E;
@@ -242,45 +253,22 @@ module LCD_Display (
                         LCD_RS     <= 1'b1;
                         LCD_RW_INT <= 1'b0;
 
-                        // ASCII character to output
-                        if (Next_Char[7:4] != 4'h0)
-                            DATA_BUS_VALUE <= Next_Char;
+                        // Next_Char ja vem em ASCII
+                        DATA_BUS_VALUE <= Next_Char;
 
-                        // Convert 4-bit value to an ASCII hex digit
-                        else if (Next_Char[3:0] > 9)
-                            // ASCII A...F
-                            DATA_BUS_VALUE <= {
-                                4'h4,
-                                Next_Char[3:0] - 4'h9
-                            };
-
-                        else
-                            // ASCII 0...9
-                            DATA_BUS_VALUE <= {
-                                4'h3,
-                                Next_Char[3:0]
-                            };
-
-                        // Loop to send out 32 characters to LCD Display
-                        // (16 by 2 lines)
                         if ((CHAR_COUNT < 31) && (Next_Char != 8'hFE))
                             CHAR_COUNT <= CHAR_COUNT + 1'b1;
                         else
                             CHAR_COUNT <= 5'b00000;
 
-                        // Jump to second line?
                         if (CHAR_COUNT == 15)
                             next_command <= LINE2;
-
-                        // Return to first line?
                         else if ((CHAR_COUNT == 31) || (Next_Char == 8'hFE))
                             next_command <= RETURN_HOME;
-
                         else
                             next_command <= Print_String;
                     end
 
-                // Set write address to line 2 character 1
                 LINE2:
                     begin
                         LCD_E          <= 1'b1;
@@ -291,7 +279,6 @@ module LCD_Display (
                         next_command   <= Print_String;
                     end
 
-                // Return write address to first character postion on line 1
                 RETURN_HOME:
                     begin
                         LCD_E          <= 1'b1;
@@ -302,17 +289,12 @@ module LCD_Display (
                         next_command   <= Print_String;
                     end
 
-                // The next three states occur at the end of each command
-                // or data transfer to the LCD
-
-                // Drop LCD E line - falling edge loads inst/data to LCD controller
                 DROP_LCD_E:
                     begin
                         LCD_E <= 1'b0;
                         state <= HOLD;
                     end
 
-                // Hold LCD inst/data valid after falling edge of E line
                 HOLD:
                     begin
                         state <= next_command;
@@ -320,67 +302,6 @@ module LCD_Display (
 
             endcase
         end
-    end
-
-endmodule
-
-
-module LCD_display_string (
-    index,
-    out,
-    hex0,
-    hex1,
-    hex2,
-    hex3,
-    hex4,
-    hex5,
-    hex6,
-    hex7,
-);
-
-    input [4:0] index;
-    input [3:0] hex7;
-    input [3:0] hex6;
-	input [3:0] hex5;
-    input [3:0] hex4;
-	input [3:0] hex3;
-    input [3:0] hex2;
-    input [3:0] hex1;
-    input [3:0] hex0;
-
-    output [7:0] out;
-    reg [7:0] out;
-
-    // ASCII hex values for LCD Display
-    // Enter Live Hex Data Values from hardware here
-    // LCD DISPLAYS THE FOLLOWING:
-    //----------------------------
-    //| Count=XX                  |
-    //| DE2                       |
-    //----------------------------
-
-    // Line 1
-    always begin
-        case (index)
-            5'h00: out = {4'h0, hex7};
-            5'h01: out = {4'h0, hex6};
-            5'h02: out = {4'h0, hex5};
-            5'h03: out = {4'h0, hex4};
-            5'h04: out = {4'h0, hex3};
-            5'h05: out = {4'h0, hex2};
-            5'h06: out = {4'h0, hex1};
-            5'h07: out = {4'h0, hex0};
-            // Line 2
-            // 5'h10:
-            //     out <= 8'h44;
-            // 5'h11:
-            //     out <= 8'h45;
-            // 5'h12:
-            //     out <= 8'h32;
-            default:
-                out = 8'h20;
-
-        endcase
     end
 
 endmodule
